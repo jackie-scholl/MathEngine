@@ -62,13 +62,24 @@ public class ExponentiationFunction extends BinaryFunction {
 	}
 	
 	public String toString() {
+		Function base = f;
+		Function exp = g;
+		if (exp instanceof ConstantFunction) {
+			double exp2 = constValue(exp);
+			if (exp2 < 0) {
+				return String.format("1/(%s)", power(base, -exp2));
+			}
+		}
+		
 		String fs = needsParens(f) ? "(" + f + ")" : f.toString();
 		String gs = needsParens(f) ? "(" + g + ")" : g.toString();
 		return String.format("%s^%s", fs, gs);
 	}
 	
 	private boolean needsParens(Function f) {
-		return !(f instanceof ConstantFunction || f instanceof VariableFunction);
+		//return false;
+		return f instanceof SumFunction || f instanceof ProductFunction;
+		//return !(f instanceof ConstantFunction || f instanceof VariableFunction);
 	}
 	
 	/*if (f2.equals(ZERO))

@@ -11,7 +11,7 @@ public abstract class UnaryFunction extends BaseFunction {
 	
 	protected abstract Function diff2();
 	
-	public int compareTo(UnaryFunction other) {
+	public int compareTo(Function other) {
 		if (getClass() != other.getClass())
 			return super.compareTo(other);
 		UnaryFunction o = (UnaryFunction) other;

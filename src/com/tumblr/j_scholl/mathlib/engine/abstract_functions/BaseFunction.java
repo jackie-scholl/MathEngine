@@ -71,11 +71,14 @@ class FunctionComparator2 {
 	static {
 		List<Class<? extends Function>> list = new ArrayList<>();
 		list.add(ConstantFunction.class);
-		list.add(ExponentiationFunction.class);
 		list.add(VariableFunction.class);
+		list.add(SinFunction.class);
+		list.add(CosFunction.class);
+		list.add(ExponentiationFunction.class);
 		list.add(NaturalLogFunction.class);
 		list.add(InverseFunction.class);
 		list.add(ProductFunction.class);
+		list.add(NegativeFunction.class);
 		list.add(SumFunction.class);
 		
 		classOrder = new HashMap<>();
@@ -86,10 +89,15 @@ class FunctionComparator2 {
 	public static int funcCompare(Function a, Function b) {
 		if (a.getClass() == b.getClass())
 			throw new RuntimeException("Should be calling other method");
-		//System.out.printf("a is \"%s\" of class %s and b is \"%s\" of class %s%n", a, a.getClass(), b, b.getClass());
+		//System.out.printf("a is \"%s\" of class %s and b is \"%s\" of class %s%n", a, a.getClass().getSimpleName(), b,
+		//		b.getClass().getSimpleName());
 		int ao = classOrder.get(a.getClass());
 		int bo = classOrder.get(b.getClass());
-		return Integer.compare(ao, bo);
+		int c = Integer.compare(ao, bo);
+		/*System.out.printf("a is \"%s\" of class %s and b is \"%s\" of class %s; a %c b%n", a, a.getClass()
+				.getSimpleName(), b,
+				b.getClass().getSimpleName(), c < 0 ? '<' : c == 0 ? '=' : '>');*/
+		return c;
 	}
 }
 

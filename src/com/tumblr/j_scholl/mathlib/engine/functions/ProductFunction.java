@@ -26,6 +26,9 @@ public class ProductFunction extends BinaryFunction {
 			} else if (f instanceof ConstantFunction) {
 				//funcs.remove(i--);
 				constant = apply(constant, constValue(f));
+			} else if (f instanceof NegativeFunction) {
+				constant = -constant;
+				funcs.add(negative(f));
 			} else {
 				//funcs.remove(i--);
 				Function base = f;
@@ -58,7 +61,8 @@ public class ProductFunction extends BinaryFunction {
 		for (Function f : funcs)
 			res = create(res, f);
 		
-		System.out.printf("Product %s -> %s%n", funcs, res);
+		if (DEBUG_PRINT_PRODUCTS_SUMS)
+			System.out.printf("Product %s -> %s%n", funcs, res);
 		
 		return res;
 	}
@@ -99,9 +103,12 @@ public class ProductFunction extends BinaryFunction {
 	}
 	
 	public String toString() {
+		return String.format("%s*%s", getString(f), getString(g));
+	}
+	
+	private String getString(Function f) {
 		String fs = needsParens(f) ? "(" + f + ")" : f.toString();
-		String gs = needsParens(f) ? "(" + g + ")" : g.toString();
-		return String.format("%s*%s", fs, gs);
+		return fs;
 	}
 	
 	private boolean needsParens(Function f) {
@@ -112,6 +119,19 @@ public class ProductFunction extends BinaryFunction {
 	
 }
 
+//String fs = getString(f);
+//String gs = needsParens(f) ? "(" + g + ")" : g.toString();
+/*if (f instanceof ExponentiationFunction) {
+ExponentiationFunction f2 = (ExponentiationFunction) f;
+Function base = f2.base();
+Function exp = f2.exponent();
+if (exp instanceof ConstantFunction) {
+	double exp2 = constValue(exp);
+	if (exp2 < 0) {
+		fs = String.format("1/(%s)", power(base, -exp2));
+	}
+}
+}*/
 /* else if (f instanceof ExponentiationFunction) {
 //funcs.remove(i--);
 ExponentiationFunction f2 = (ExponentiationFunction) f;

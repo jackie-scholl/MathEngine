@@ -31,10 +31,10 @@ public class SumFunction extends BinaryFunction {
 				constant = apply(constant, constValue(f));
 			}
 		}
+		
 		funcs.add(constant(constant));
 		
 		Collections.sort(funcs);
-		//System.out.println("Sum " + funcs);
 		
 		Function res = ZERO;
 		for (Function f : funcs)
@@ -75,7 +75,6 @@ public class SumFunction extends BinaryFunction {
 		printDiff();
 		Function fp = f.diff();
 		Function gp = g.diff();
-		//printDiff(fp, gp);
 		return sum(fp, gp);
 	}
 	
@@ -83,7 +82,7 @@ public class SumFunction extends BinaryFunction {
 		String fs = needsParens(f) ? "(" + f + ")" : f.toString();
 		String gs = needsParens(f) ? "(" + g + ")" : g.toString();
 		return String.format("%s+%s", fs, gs);
-		//return String.format("[S %s+%s]", fs, gs);
+		//return String.format("[%s+%s]", fs, gs);
 	}
 	
 	private boolean needsParens(Function f) {
