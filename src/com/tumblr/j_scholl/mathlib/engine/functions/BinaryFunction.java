@@ -1,4 +1,4 @@
-package com.tumblr.j_scholl.mathlib.engine.abstract_functions;
+package com.tumblr.j_scholl.mathlib.engine.functions;
 
 import static com.tumblr.j_scholl.mathlib.engine.Helper.DEBUG_PRINT_DIFFERENTIALS;
 

@@ -2,19 +2,19 @@ package com.tumblr.j_scholl.mathlib.engine.functions;
 
 import static com.tumblr.j_scholl.mathlib.engine.Helper.*;
 
-public class SinFunction extends UnaryFunction {
+public class TanFunction extends UnaryFunction {
 	public static Function create(Function f) {
 		if (f instanceof ConstantFunction)
 			return constant(apply(constValue(f)));
-		return new SinFunction(f);
+		return new TanFunction(f);
 	}
 	
-	private SinFunction(Function f) {
+	private TanFunction(Function f) {
 		super(f);
 	}
 	
 	private static double apply(double x) {
-		return Math.sin(x);
+		return Math.tan(x);
 	}
 	
 	@Override
@@ -24,10 +24,10 @@ public class SinFunction extends UnaryFunction {
 	
 	@Override
 	protected Function diff2() {
-		return product(cos(f), f.diff());
+		return product(sec(f), sec(f), f.diff());
 	}
 	
 	public String toString() {
-		return String.format("sin(%s)", f);
+		return String.format("tan(%s)", f);
 	}
 }

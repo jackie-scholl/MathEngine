@@ -2,9 +2,6 @@ package com.tumblr.j_scholl.mathlib.engine.functions;
 
 import static com.tumblr.j_scholl.mathlib.engine.Helper.*;
 
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.Function;
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.UnaryFunction;
-
 public class NaturalLogFunction extends UnaryFunction {
 	public static Function create(Function f) {
 		if (f instanceof ConstantFunction)

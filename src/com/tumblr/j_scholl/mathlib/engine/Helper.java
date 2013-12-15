@@ -1,8 +1,8 @@
 package com.tumblr.j_scholl.mathlib.engine;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.Function;
 import com.tumblr.j_scholl.mathlib.engine.functions.*;
 
 public class Helper {
@@ -16,7 +16,7 @@ public class Helper {
 	public static final Function NEGATIVE_ONE = constant(-1.0);
 	
 	public static void main(String... args) {
-		Function f = varFunction();
+		Function f = var();
 		System.out.println(f.eval(3.0));
 		
 		Function g = polynomial(1.0, -3.0, 2.0);
@@ -39,14 +39,27 @@ public class Helper {
 		System.out.println(h.eval(-0.5));
 		System.out.println(h.diff());
 		
-		Function i = power(varFunction(), varFunction());
+		Function i = power(var(), var());
 		System.out.println(i);
 		System.out.println(i.diff());
 		
-		Function a = tan(varFunction());
+		System.out.println("-------------------------");
+		
+		Function a = tan(var());
 		System.out.println(a);
 		System.out.println(a.diff());
 		
+		System.out.println("-------------------------");
+		
+		Function b = ln(tan(product(var, constant(2))));
+		System.out.println(b);
+		System.out.println(b.diff());
+		
+		System.out.println("-------------------------");
+		
+		Function c = tan(product(var, constant(2)));
+		System.out.println(c);
+		System.out.println(c.diff());
 	}
 	
 	public static Function constant(double x) {
@@ -58,12 +71,14 @@ public class Helper {
 		return f2.value();
 	}
 	
-	public static Function varFunction() {
-		return VariableFunction.create();
+	private static final Function var = VariableFunction.create();
+	
+	public static Function var() {
+		return var;
 	}
 	
 	public static Function varPowFunction(double pow) {
-		return power(varFunction(), constant(pow));
+		return power(var(), constant(pow));
 	}
 	
 	public static Function sum(Function... funcs) {
@@ -111,7 +126,7 @@ public class Helper {
 		Function[] funcs = new Function[len];
 		for (int i = 0; i < len; i++) {
 			int exp = len - i - 1;
-			funcs[i] = product(constant(coefficients[i]), power(varFunction(), exp));
+			funcs[i] = product(constant(coefficients[i]), power(var(), exp));
 		}
 		return sum(funcs);
 	}
@@ -126,6 +141,7 @@ public class Helper {
 	
 	public static Function tan(Function f) {
 		return quotient(sin(f), cos(f));
+		//return TanFunction.create(f);
 	}
 	
 	public static Function sec(Function f) {

@@ -2,11 +2,18 @@ package com.tumblr.j_scholl.mathlib.engine.functions;
 
 import static com.tumblr.j_scholl.mathlib.engine.Helper.*;
 
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.BinaryFunction;
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.Function;
-
 public class ExponentiationFunction extends BinaryFunction {
 	public static Function create(Function base, Function exp) {
+		if (base instanceof ProductFunction) {
+			ProductFunction f = (ProductFunction) base;
+			return product(power(f.f, exp), power(f.g, exp));
+		}
+		
+		if (base instanceof ExponentiationFunction) {
+			ExponentiationFunction f = (ExponentiationFunction) base;
+			return power(f.base(), product(f.exponent(), exp));
+		}
+		
 		if (base.equals(ZERO))
 			return ZERO;
 		if (base.equals(ONE))
@@ -67,7 +74,19 @@ public class ExponentiationFunction extends BinaryFunction {
 		if (exp instanceof ConstantFunction) {
 			double exp2 = constValue(exp);
 			if (exp2 < 0) {
-				return String.format("1/(%s)", power(base, -exp2));
+				String after = exp.equals(NEGATIVE_ONE) ? "" : "^" + negative(exp).toString();
+				if (base instanceof SinFunction) {
+					Function sub = ((SinFunction) base).base();
+					return String.format("csc(%s)%s", sub, after);
+				} else if (base instanceof CosFunction) {
+					Function sub = ((CosFunction) base).base();
+					return String.format("sec(%s)%s", sub, after);
+				} else if (base instanceof TanFunction) {
+					Function sub = ((TanFunction) base).base();
+					return String.format("cot(%s)%s", sub, after);
+				}
+				return String.format("1/(%s)%s", base, after);
+				//return String.format("1/(%s)", power(base, -exp2));
 			}
 		}
 		

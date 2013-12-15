@@ -1,4 +1,4 @@
-package com.tumblr.j_scholl.mathlib.engine.abstract_functions;
+package com.tumblr.j_scholl.mathlib.engine.functions;
 
 public interface Function extends Comparable<Function> {
 	public double eval(double x);

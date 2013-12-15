@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.BinaryFunction;
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.Function;
-
 public class SumFunction extends BinaryFunction {
 	public static Function create(List<Function> functions) {
 		if (functions.size() == 1) {

@@ -4,15 +4,14 @@ import static com.tumblr.j_scholl.mathlib.engine.Helper.*;
 
 import java.util.*;
 
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.BinaryFunction;
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.Function;
-
 public class ProductFunction extends BinaryFunction {
 	public static Function create(List<Function> functions) {
+		if (functions.size() == 1) {
+			return functions.get(0);
+		}
+		
 		List<Function> funcs = new ArrayList<Function>(functions);
-		
 		Map<Function, List<Function>> expMap = new HashMap<>();
-		
 		double constant = 1.0;
 		for (int i = 0; i < funcs.size(); i++) {
 			Function f = funcs.remove(i--);
@@ -46,11 +45,40 @@ public class ProductFunction extends BinaryFunction {
 			}
 		}
 		
+		Map<Function, Function> expMap2 = new HashMap<>();
+		
 		for (Function base : expMap.keySet()) {
 			List<Function> exps = expMap.get(base);
 			Function totalExp = sum(exps);
-			Function powerFunc = power(base, totalExp);
-			funcs.add(powerFunc);
+			expMap2.put(base, totalExp);
+		}
+		
+		/*
+		 *  else if (f instanceof TanFunction) {
+				TanFunction f2 = (TanFunction) f;
+				funcs.add(sin(f2));
+				funcs.add(inverse(cos(f2)));
+			} 
+		 */
+		
+		/*for (Function base : expMap.keySet()) {
+			if (base instanceof SinFunction) {
+				SinFunction f2 = (SinFunction) base;
+				Function sub = f2.base();
+				for (Function possibleCos : expMap.keySet()) {
+					if (possibleCos instanceof CosFunction) {
+						CosFunction f3 = (CosFunction) possibleCos;
+						Function sub2 = f3.base();
+						if (sub.equals(sub2)) {
+							
+						}
+					}
+				}
+			}
+		}*/
+		
+		for (Function base : expMap2.keySet()) {
+			funcs.add(power(base, expMap2.get(base)));
 		}
 		
 		funcs.add(constant(constant));
@@ -62,7 +90,7 @@ public class ProductFunction extends BinaryFunction {
 			res = create(res, f);
 		
 		if (DEBUG_PRINT_PRODUCTS_SUMS)
-			System.out.printf("Product %s -> %s%n", funcs, res);
+			System.out.printf("Product %s -> %.2f*%s -> %s -> %s%n", functions, constant, expMap, funcs, res);
 		
 		return res;
 	}

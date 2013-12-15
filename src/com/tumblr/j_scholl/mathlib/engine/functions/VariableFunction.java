@@ -1,10 +1,6 @@
 package com.tumblr.j_scholl.mathlib.engine.functions;
 
-import static com.tumblr.j_scholl.mathlib.engine.Helper.*;
-
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.BaseFunction;
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.Function;
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.UnaryFunction;
+import static com.tumblr.j_scholl.mathlib.engine.Helper.constant;
 
 public class VariableFunction extends BaseFunction {
 	private static final VariableFunction instance = new VariableFunction();

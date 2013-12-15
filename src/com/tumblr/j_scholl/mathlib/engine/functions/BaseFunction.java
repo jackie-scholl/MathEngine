@@ -1,4 +1,4 @@
-package com.tumblr.j_scholl.mathlib.engine.abstract_functions;
+package com.tumblr.j_scholl.mathlib.engine.functions;
 
 import java.util.*;
 
@@ -38,31 +38,6 @@ public abstract class BaseFunction implements Function {
 		}
 		return FunctionComparator2.funcCompare(this, other);
 	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((derivative == null) ? 0 : derivative.hashCode());
-		return result;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BaseFunction other = (BaseFunction) obj;
-		if (derivative == null) {
-			if (other.derivative != null)
-				return false;
-		} else if (!derivative.equals(other.derivative))
-			return false;
-		return true;
-	}
 }
 
 class FunctionComparator2 {
@@ -74,6 +49,7 @@ class FunctionComparator2 {
 		list.add(VariableFunction.class);
 		list.add(SinFunction.class);
 		list.add(CosFunction.class);
+		list.add(TanFunction.class);
 		list.add(ExponentiationFunction.class);
 		list.add(NaturalLogFunction.class);
 		list.add(InverseFunction.class);

@@ -1,9 +1,6 @@
 package com.tumblr.j_scholl.mathlib.engine.functions;
 
-import static com.tumblr.j_scholl.mathlib.engine.Helper.*;
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.BaseFunction;
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.Function;
-import com.tumblr.j_scholl.mathlib.engine.abstract_functions.UnaryFunction;
+import static com.tumblr.j_scholl.mathlib.engine.Helper.constant;
 
 public class ConstantFunction extends BaseFunction {
 	private final double value;
@@ -39,7 +36,7 @@ public class ConstantFunction extends BaseFunction {
 	public String toString() {
 		String res = String.format("%.2f", value);
 		double distFromInt = Math.abs(value - Math.rint(value));
-		if (distFromInt < 0.00001) {
+		if (distFromInt < 0.0000001) {
 			long l = Math.round(value);
 			res = String.format("%d", l);
 		}

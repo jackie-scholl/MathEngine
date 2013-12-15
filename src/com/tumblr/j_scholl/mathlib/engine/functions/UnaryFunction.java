@@ -1,4 +1,4 @@
-package com.tumblr.j_scholl.mathlib.engine.abstract_functions;
+package com.tumblr.j_scholl.mathlib.engine.functions;
 
 public abstract class UnaryFunction extends BaseFunction {
 	protected final Function f;
@@ -11,6 +11,10 @@ public abstract class UnaryFunction extends BaseFunction {
 	
 	protected abstract Function diff2();
 	
+	public Function base() {
+		return f;
+	}
+	
 	public int compareTo(Function other) {
 		if (getClass() != other.getClass())
 			return super.compareTo(other);
@@ -21,7 +25,7 @@ public abstract class UnaryFunction extends BaseFunction {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((f == null) ? 0 : f.hashCode());
 		return result;
 	}
@@ -30,7 +34,7 @@ public abstract class UnaryFunction extends BaseFunction {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
